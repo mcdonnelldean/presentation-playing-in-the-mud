@@ -1,0 +1,289 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1, maximum-scale=1')
+    title Pattern matching is Awesome
+
+    link(rel='stylesheet', type='text/css', href='build/build.css')
+
+  body
+
+    article
+
+      section
+        a(href="http://nearform.com" style="width: 20%")
+          img(src="./images/nearform.svg")
+        h2 Pattern matching
+        h2 is awesome!
+        h3 by&nbsp;
+          a(href="http://twitter.com/matteocollina") @mcdonnelldean
+
+      section
+        h2 Does this look familiar?
+        pre
+          code.language-javascript.
+            class Person {
+              constructor (name) { this._name = name }
+              get name () { return this._name }
+              set name (val) { this._name = val }
+            }
+
+            var person = new Person('Dean')
+
+      section
+        h2 It's an object!
+
+      section
+        h2 Or is it?
+
+      section
+        h4
+          i.fa.fa-quote-left &nbsp;
+          | I thought of objects being like biological cells and/or individual
+          | computers on a network, only able to communicate with messages.
+          i.fa.fa-quote-right &nbsp;
+        br
+        h5 - Alan Key, father of OOP
+
+      section
+        h2 That sounds more like...
+        pre
+          code.language-javascript.
+            var seneca = require('seneca')().use('redis-sync-transport')
+
+            seneca.add({cmd:'tax'}, function (args, done) {
+              done(null, {total: (args.net * (1 + 0.23))})
+            })
+
+            seneca.act({cmd:'tax', net:100}, function (err, result) {
+              console.log(result.total)
+            })
+
+            seneca.listen( {type:'redis-sync', pin:'cmd:tax, net:*'})
+
+      section
+        h2 Think about it!
+        p We now have a little object (script) that listens
+          on a network (via redis) and handles messages (json objects)
+
+      section
+        h2 But don't focus too much on the objects themselves
+
+      section
+        h4
+          i.fa.fa-quote-left &nbsp;
+          | I’m sorry that I long ago coined the term “objects” for this topic because
+          | it gets many people to focus on the lesser idea.
+          i.fa.fa-quote-right &nbsp;
+        br
+        h5 - Alan Key, father of OOP
+
+      section
+        h2 Focus on how they are communicating
+
+      section
+        h4
+          i.fa.fa-quote-left &nbsp;
+          | The big idea is “messaging”
+          i.fa.fa-quote-right &nbsp;
+          br
+          br
+          i.fa.fa-quote-left &nbsp;
+          | The key in making great and growable systems is much
+          | more to design how its modules communicate rather than
+          | what their internal properties and behaviors should be.
+          i.fa.fa-quote-right &nbsp;
+        br
+        h5 - Alan Key, father of OOP
+
+
+      section
+        h2 Matteo explains 'Objects' more thoroughly...
+        p "We are not Object Oriented anymore"
+        a(href="https://mcollina.github.io/we-are-not-object-oriented-anymore") https://mcollina.github.io/we-are-not-object-oriented-anymore
+
+      section
+        h2 For now,
+        h3 lets focus on the messaging
+        ul.bullet
+          li on our object...
+
+
+      section
+        h2 But...
+        h3 We've used Object to describe our smaller units of functionality for so long now that it feels wrong to call our little program an "Object"
+
+      section
+        h2 Lets call it a...
+
+      section
+        h1 Microservice!
+        ul.bullet
+          li but lets focus on the messaging...
+
+      section
+        h2 Our microservice accepts json objects..
+
+      section
+          h2 Like this...
+          pre
+            code.language-javascript.
+              {cmd: 'tax', net: '100'}
+              {cmd: 'tax', net: '2.5'}
+              {cmd: 'tax', net: '144'}
+
+      section
+        h2 But how do those messages get to our little functions inside our microservice?
+
+      section
+        h2 Pattern Matching!
+
+      section
+        h2 There are tons of modules
+        h3 and lower level tools
+        ul.bullet
+          li Varo: for the front end
+          li Seneca: for the backend
+          li Nanite: for streams
+          li Bloomrun: fast tooling
+          li Patrun: highly configurable tooling
+
+
+      section
+        h2 Varo
+        pre
+          code.language-javascript.
+            var varo = require('varo')()
+
+            varo.handle({role: 'sum'}, function (msg, done) {
+              return done(null, {answer: (msg.left + msg.right)})
+            })
+
+            varo.observe({role: 'sum'}, function (msg) {console.log(msg)})
+
+            varo.act({role: 'sum', left: 1, right: 2}, function (err, reply) {
+              console.log(reply.answer)
+            })
+
+      section
+        h2 Seneca
+        pre
+          code.language-javascript.
+            var seneca = require('seneca')()
+            seneca.use('redis-sync-transport')
+
+            seneca.add({cmd:'tax'}, function (args, done) {
+              done(null, {total: (args.net * (1 + 0.23))})
+            })
+
+            seneca.act({cmd:'tax', net:100}, function (err, result) {
+              console.log(result.total)
+            })
+
+            seneca.listen( {type:'redis-sync', pin:'cmd:tax, net:*'})
+
+      section
+        h2 Nanite
+        pre
+          code.language-javascript.
+            var nanite = require('nanite')(),
+                drain = require('nanite-drain'),
+                fill = require('nanite-fill')
+
+            nanite.when({cmd: 'print'}, drain(function (msg, done) {
+              console.log('Message ' + msg.val + ' handled')
+              done()
+            }))
+
+            fill([{cmd: 'print', val: 1}, {cmd: 'print', val: 2}).pipe(nanite)
+
+      section
+        h2 bloomrun
+        pre
+          code.language-javascript.
+            var bloomrun = require('bloomrun')()
+            bloomrun.add({say: 'hello' }, 'Hello World!')
+            bloomrun.add({say: 'goodbye'}, function () {
+              console.log('Goodbye World!')
+            })
+
+            console.log(bloomrun.lookup({say: 'hello'}))
+            console.log(bloomrun.lookup({say: 'goodbye'})())
+
+      section
+        h2 Patrun
+        pre
+          code.language-javascript.
+            function I(val) {
+              var rate = function () {return val};
+              rate.val=val;
+              return rate
+            }
+            var tax = require('patrun')()
+            tax.add({}, I(0.0) )
+            tax.add({ country:'IE' }, I(0.25))
+
+            console.log(salestax.find({})(99))
+            console.log(salestax.find({country:'IE'})(99))
+
+      section
+        h2 You can use this stuff however you like
+        ul.bullet
+          li and there are loads of samples available
+
+      section
+        h2 For instance...
+        ul.bullet
+          li a full microservice system
+          li a react starter sample
+          li a react with flux starter kit
+          li a minimum viable product sample
+          li even a workshopper!
+
+      section
+        h2 Links
+        ul.bullet
+          li
+            a(href="https://github.com/rjrodger/nodezoo") https://github.com/rjrodger/nodezoo
+          li
+            a(href="https://github.com/senecajs/react-example") https://github.com/senecajs/react-example
+          li
+            a(href="https://github.com/vtardia/seneca-varo-react-example") https://github.com/vtardia/seneca-varo-react-example
+          li
+            a(href="https://github.com/senecajs/seneca-mvp") https://github.com/senecajs/seneca-mvp
+          li
+            a(href="https://github.com/senecajs/seneca-in-practice") https://github.com/senecajs/seneca-in-practice
+
+      section
+        h2 Go forth
+        h2 and pattern match!
+
+      section
+        h2 Get the slides
+        ul.bullet
+          li
+            p online
+            a(href="http://pattern-matching-is-awesome.mcdonnelldean.me").
+              http://pattern-matching-is-awesome.mcdonnelldean.me
+          li
+            p on github
+            a(href="https://github.com/mcdonnelldean/pattern-matching-is-awesome").
+              https://github.com/mcdonnelldean/pattern-matching-is-awesome
+
+
+      section.full-imgs
+        img(src='images/me.png')
+        h4
+          a(href="http://github.com/mcdonnelldean") http://github.com/mcdonnelldean
+
+      section
+        h1 Thanks!
+        p Come say hello,
+        p or via twitter, or via email
+        br
+        h4 <a href="mailto:dean.mcdonnell@nearform.com">dean.mcdonnell@nearform.com</a>
+        h4 <a href="http://twitter.com/mcdonnelldean">@mcdonnelldean</a>
+        h4 <a href="http://www.nearform.com">www.nearform.com</a>
+
+    script(src='build/build.js')
