@@ -1,17 +1,20 @@
-# Pattern matching is awesome
-> A [Bespoke.js](http://markdalgleish.com/projects/bespoke.js) presentation, built with [generator-bespoke](https://github.com/markdalgleish/generator-bespoke)
+# Playing in the mud
+> A pesentation
 
-## View slides locally
+## View online
+In a browser, navigate to,
 
-First, ensure you have the following installed:
+- [http://playing-in-the-mud.mcdonnelldean.me]()
+
+## View locally
+First, ensure you have the following installed,
 
 1. [Node.js](http://nodejs.org)
-2. [Bower](http://bower.io): `$ npm install -g bower`
-3. [Gulp](http://gulpjs.com): `$ npm install -g gulp`
+2. [Bower](http://bower.io): `npm install -g bower`
+3. [Gulp](http://gulpjs.com): `npm install -g gulp`
 
-Then, install dependencies and run the preview server:
+Then, install dependencies and run the preview server,
 
-```bash
-$ npm install && bower install
-$ gulp serve
+```
+npm install; bower install; gulp serve
 ```
