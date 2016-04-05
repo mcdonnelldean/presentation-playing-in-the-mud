@@ -26,7 +26,6 @@ html
         h2 What are we building?
         h3 "Real World" systems & tooling
         p a developer focused search engine
-        p a metrics dashboard and pipeline
         p tools to improve developer experience
         p systems that can be used as reference
 
@@ -39,9 +38,7 @@ html
         p move things forward
 
       section
-        h2 It's been an experience
-        h3 I've learned a lot of lessons
-        h4 Especially about building microservices
+        img(src="./images/javascript-microservices.jpg")
 
       section
         h2 Bye bye comfort zone
@@ -86,7 +83,7 @@ html
         h3 5 things I have come to understand
 
       section
-        h2 1. They stand alone
+        h2 1. It must run in isolation
         h3 If I can't run it in isolation it's not a Microservice!
         p There is a fine line between Microservices and a distributed monolith.
 
@@ -101,9 +98,9 @@ html
         p Identify your systems pulse points. Track these live to see how your system is behaving.
 
       section
-        h2 4. Features win. Always
-        h3 Stop limiting features because architecture.
-        p If it needs a upd server glued to the back of it, glue a damn upd server the back of it.
+        h2 4. Version aggressively
+        h3 Don't be like me
+        p Failure to version correctly will take the whole system down
 
       section
         h2 5. Give it a week
@@ -113,15 +110,16 @@ html
 
       section
         h2 Demo Time
-        h3 Lets look at what we are showing
-        h5 Vidi Insights
-        p Metric collection, storage, and dashboarding
-        h5 Nodezoo
-        p A search engine for node.js modules
-        h5 Fuge
-        p  Essentially rails for Microservices
-        h6 plus
-        p InfluxDb, Seneca Mesh, and Elastic Search
+        br
+        br
+        img(src="./images/logo-nodezoo.png" style="width: 40%")
+        br
+        h5 A microservice based search engine for node.js modules.
+        br
+        br
+        img(src="./images/fuge-logo.png" style="width: 60%")
+        br
+        h5 A microservice execution environment.
 
       section
         h2 Wrap up
@@ -130,8 +128,6 @@ html
       section
         h2 Links
         ul.bullet
-          p
-            a(href="https://github.com/vidi-insights") Vidi Insights (github.com/vidi-insights)
           p
             a(href="https://github.com/nodezoo") Nodezoo (github.com/nodezoo)
           p
