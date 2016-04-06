@@ -4,7 +4,7 @@
 ## View online
 In a browser, navigate to,
 
-- [http://playing-in-the-mud.mcdonnelldean.me]()
+- [http://playing-in-the-mud.mcdonnelldean.me](http://playing-in-the-mud.mcdonnelldean.me)
 
 ## View locally
 First, ensure you have the following installed,
